@@ -14,18 +14,21 @@ public class MainActivity extends BaseActivity {
 
     private Button forceOffline;
 
-
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //获取按钮 
         forceOffline = (Button) findViewById(R.id.force_offline);
+        //注册事件 
         forceOffline.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				//启用广播
 				Intent intent = new Intent("com.exmaple.boradcastbestpractice.FORCE_OFFLINE");
+				//发送广播--标准广播 
 				sendBroadcast(intent);
 			}
 		});

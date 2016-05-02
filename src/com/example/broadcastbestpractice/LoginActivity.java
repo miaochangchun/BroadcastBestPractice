@@ -25,14 +25,19 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		//首先调用父类的方法
 		super.onCreate(savedInstanceState);
+		//加载登陆布局
 		setContentView(R.layout.login);
+		//android系统下用于数据存储的一个方便的API,
 		pref = PreferenceManager.getDefaultSharedPreferences(this);
+		//获取输入内容
 		accountEdit = (EditText) findViewById(R.id.account);
 		passwordEdit = (EditText) findViewById(R.id.password);
 		rememberPass = (CheckBox) findViewById(R.id.remember_password);
 		login = (Button) findViewById(R.id.login);
 		boolean isRememberPass = pref.getBoolean("remember_password", false);
+		//进入界面时，这个if用来判断SharedPreferences里面name和password有没有数据，有的话则直接打在EditText上面
 		if(isRememberPass){
 			String account = pref.getString("account", "");
 			String password = pref.getString("password", "");
@@ -40,6 +45,7 @@ public class LoginActivity extends BaseActivity {
 			passwordEdit.setText(password);
 			rememberPass.setChecked(true);
 		}
+		//注册按钮点击事件
 		login.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -57,10 +63,14 @@ public class LoginActivity extends BaseActivity {
 						editor.clear();
 					}
 					editor.commit();
+					//登陆成功，启用MainActivity活动 
 					Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+					//启动
 					startActivity(intent);
+					//当前活动销毁 
 					finish();
 				}else {
+					//登陆失败，清空内容
 					Toast.makeText(LoginActivity.this, "account or password is invalid!", Toast.LENGTH_SHORT).show();
 				}
 			}
